@@ -147,7 +147,7 @@ def main():
         st.title("Step 2: Record the dog's activity data using the motion sensor")
 
         # Image
-        image = Image.open("utils/Images/guide_step1.jpg")
+        image = Image.open("utils/Images/guide_step2.png")
         image = image.resize((400, 400))
         st.image(image, caption="", use_column_width=False)
 
