@@ -22,7 +22,7 @@ def main():
         "Select an option",
         ("App Insides","Quick Guide", "Application")
     )
-    if main_menu == "Paper":
+    if main_menu == "App Insides":
         st.title("Paper")
 
         paper_drive_link = "https://dog-activity-recognition.streamlit.app/"
