@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 from tensorflow import keras
 from keras.models import load_model
+from PIL import Image
 from collections import Counter
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -19,23 +20,36 @@ def main():
 
     main_menu = st.sidebar.radio(
         "Select an option",
-        ("Paper", "Data Analysis", "Evaluation", "APP")
+        ("App Insides","Quick Guide", "Application")
     )
-
     if main_menu == "Paper":
         st.title("Paper")
-        st.title("Paper")
 
-        # pdf_url = "https://github.com/ghanshyampendawala/Dog-Activity-Tracker/blob/main/utils/taxpnl-FY2023-2024.pdf"
+        paper_drive_link = "https://dog-activity-recognition.streamlit.app/"
 
-        # response = requests.get(pdf_url)
-        # pdf_data = response.content
+        text = f"Click <a href='{paper_drive_link}' target='_blank'>here</a> to view the paper."
+        st.markdown(f"<p style='font-size: 26px;'>{text}</p>", unsafe_allow_html=True)
 
-        # st.pdf_viewer(BytesIO(pdf_data))
-
-    elif main_menu == "Data Analysis":
         st.title("Data Analysis")
 
+        st.markdown("<h1 style='text-align: center; color: #008080; font-size: 26px;'>Data Information</h1>", unsafe_allow_html=True)
+        column_info = {
+            'ax': 'Acceleration X: Represents acceleration along the X-axis. Positive values indicate acceleration in the positive X-direction, while negative values indicate acceleration in the negative X-direction.',
+            'ay': 'Acceleration Y: Indicates acceleration along the Y-axis. Positive values signify acceleration in the positive Y-direction, and negative values denote acceleration in the negative Y-direction.',
+            'az': 'Acceleration Z: Describes acceleration along the Z-axis. Positive values denote acceleration in the positive Z-direction, and negative values indicate acceleration in the negative Z-direction.',
+            'wx': 'Angular Velocity X: Represents angular velocity around the X-axis, indicating the rate of rotation around the X-axis.',
+            'wy': 'Angular Velocity Y: Signifies angular velocity around the Y-axis, indicating the rate of rotation around the Y-axis.',
+            'wz': 'Angular Velocity Z: Represents angular velocity around the Z-axis, indicating the rate of rotation around the Z-axis.',
+            'AngleX': 'Angle X: Denotes orientation angle with respect to the X-axis, providing information about tilt or inclination along the X-axis.',
+            'AngleY': 'Angle Y: Indicates orientation angle with respect to the Y-axis, providing information about tilt or inclination along the Y-axis.',
+            'AngleZ': 'Angle Z: Represents orientation angle with respect to the Z-axis, providing information about rotation or tilt along the Z-axis.'
+        }
+        for column, info in column_info.items():
+            st.subheader(column)
+            st.write(info)
+            st.write('\n')
+
+        
         dataframe = {
             'ax': [-1.2190, -0.8440, 0.0580, 0.8145, -0.1509, -2.2520, -0.0933, -0.7860, -0.7340, 0.1392],
             'ay': [-0.1490, 0.1020, 0.1830, 0.7466, -0.7368, 0.1710, 0.8467, 0.1250, 0.0650, -0.8584],
@@ -58,14 +72,16 @@ def main():
         st.write("Sample Data")
         st.write(data_df.sample(10))
 
-        st.write("Data Shape")
-        st.write(data_df.shape)
+        st.write("Training Data Shape")
+        st.write((285905, 10))
 
         # st.write("Label Distribution")
         label_Distribution = plt.imread("utils/Images/label_Distributions.png")
         st.image(label_Distribution, caption="")
 
         # Line chart of all actions
+        st.write("➣ Line chart of training data for each actions over time")
+
         lineplot_walking = plt.imread("utils/Images/LinePlot_walking.png")
         st.image(lineplot_walking, caption="")
 
@@ -79,35 +95,104 @@ def main():
         st.image(lineplot_lying, caption="")
 
         lineplot_climbing = plt.imread("utils/Images/LinePlot_climbing.png")
-        st.image(lineplot_climbing, caption="")
-
+        st.image(lineplot_climbing, caption="") 
+        
+        st.write("➣ Scatter plot of all training data for all actions")
         scatter_plot = plt.imread("utils/Images/scatter_plot.png")
         st.image(scatter_plot, caption="")
 
-        pairwise_plot = plt.imread("utils/Images/Pairwise_scatter.png")
-        st.image(pairwise_plot, caption="")
+        # pairwise_plot = plt.imread("utils/Images/Pairwise_scatter.png")
+        # st.image(pairwise_plot, caption="")
 
+        st.write("➣ Correlation matrix of all training data for all actions")
         correlation_matrix = plt.imread("utils/Images/Correlation_matrix.png")
         st.image(correlation_matrix, caption="")
 
-    elif main_menu == "Evaluation":
-        st.title("Evaluation")
+        st.title("Evaluations")
 
-        # Classification Report make image bigger
-        classification_report = plt.imread(
-            "utils/Images/classification_report.png")
-        st.image(classification_report, caption="",
-                 width=800, use_column_width=False)
-
-        # Make some line as above width
-        st.write("")
+        st.write("➣ Classification Report and Confusion Matrix of CNN Model")        
+        classification_report = plt.imread("utils/Images/classification_report.png")
+        st.image(classification_report, caption="", width=800, use_column_width=False)
 
         # Confusion Matrix
         confusion_matrix = plt.imread("utils/Images/confusion_matrix.png")
-        st.image(confusion_matrix, caption="",
-                 width=800, use_column_width=False)
+        st.image(confusion_matrix, caption="", width=800, use_column_width=False)
 
-    elif main_menu == "APP":
+
+    elif main_menu == "Quick Guide":
+        flow_chart = plt.imread("utils/Images/Flowchart.png")
+        st.image(flow_chart, caption="")
+
+        st.title("See How It Works.. ")
+
+        # Video
+        video_file = open('utils/video.mp4', 'rb')
+        video_bytes = video_file.read()
+        st.video(video_bytes)
+
+
+        # Step 1
+        st.title("Step 1: Attach the device to your dog's collar")
+
+        # Image
+        image = Image.open("utils/Images/guide_step1.jpg")
+        image = image.resize((400, 400))
+        st.image(image, caption="", use_column_width=False)
+
+        st.write("➣ Equip the dog with a motion sensor to capture its activity data.")
+        st.write("➣ Attach the motion sensor securely to the dog's collar.")
+        st.write("➣ Make sure the motion sensor is turned on and the battery is charged.")
+
+        # Step 2
+        st.title("Step 2: Record the dog's activity data using the motion sensor")
+
+        # Image
+        image = Image.open("utils/Images/guide_step1.jpg")
+        image = image.resize((400, 400))
+        st.image(image, caption="", use_column_width=False)
+
+        st.write("➣ Establish a bluetooth connection between the motion sensor and wit motion app. ")
+        st.write("➣ Select the device and port number from the list of available devices and ports.")
+        st.write("➣ Record the dog's activity data using the motion sensor by pressing the record button.")
+        st.write("➣ Stop recording when you want to stop and save the data in a csv file.")
+
+        # Step 3
+        st.title("Step 3: Upload the csv file to the Dog Activity Recognizer App")
+
+        # Image
+        image = Image.open("utils/Images/guide_step3.png")
+        image = image.resize((800, 400))
+        st.image(image, caption="", use_column_width=False)
+
+        st.write("➣ Upload the csv file to the Dog Activity Recognizer App.")
+        st.write("➣ Make sure the csv file is in the correct format.")
+        st.write("➣ The app will analyze the data and predict the dog's activity.")
+
+        # Step 4
+        st.title("Step 4: Data Processing and Prediction")
+
+        # Image
+        image = Image.open("utils/Images/guide_step4.png")
+        image = image.resize((800, 400))
+        st.image(image, caption="", use_column_width=False)
+
+        st.write("➣ The app will process the data and make predictions.")
+        st.write("➣ The app will display the prediction results.")
+
+        # Step 5
+        st.title("Step 5: View the prediction results")
+
+        # Image
+        image = Image.open("utils/Images/guide_step5.png")
+        image = image.resize((400, 400))
+        st.image(image, caption="", use_column_width=False)
+
+        st.write("➣ The app will display the prediction results.")
+        st.write("➣ In the prediction results, the app will display the most likely activity of the dog.")
+        st.write("➣ Graphs will be displayed to show the actions of the dog over time.")
+
+
+    elif main_menu == "Application":
 
         # model_77 = keras.models.load_model('utils/model77.h5')
         # model_78 = keras.models.load_model('utils/model78.h5')
@@ -139,14 +224,6 @@ def main():
                 all_actions, most_occurred_pred = make_prediction(
                     model_80, features_reshaped)
 
-            # Remove the loading spinner and update the results container
-            st.success("Prediction ready!")
-
-            # Print out prediction results
-            st.write(
-                f"From my observation, your Pino is currently {most_occurred_pred}.")
-
-            result_container.write("All actions")
 
             fix, ax = plt.subplots()
             plt.plot(all_actions, color='blue')
@@ -156,8 +233,10 @@ def main():
 
             # Update the results container with the new graph
             result_container.pyplot(fix)
+            
+            st.success("Prediction ready!")
+            text = f"From my observation, your Pino is currently {most_occurred_pred}."
+            st.markdown(f"<p style='text-align: center; color: #008080; font-size: 26px;'>{text}</p>", unsafe_allow_html=True)
 
-
-#
 if __name__ == "__main__":
     main()
