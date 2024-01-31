@@ -148,7 +148,7 @@ def main():
 
         # Image
         image = Image.open("utils/Images/guide_step2.png")
-        image = image.resize((400, 400))
+        image = image.resize((800, 400))
         st.image(image, caption="", use_column_width=False)
 
         st.write("➣ Establish a bluetooth connection between the motion sensor and wit motion app. ")
