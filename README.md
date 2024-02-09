@@ -1,26 +1,22 @@
 # Dog Activity Tracker Project
 
-This Dog Activity Tracker project is a collaborative effort by members m1, m2, and m3. The project aims to track and predict dog activities using sensor data from a Wit Motion sensor. The trained CNN model processes the sensor data to make predictions without relying on visual input.
+This Dog Activity Tracker project is a collaborative effort by members Dhruval Bhuva, Bushra Najeeb, and Aniket Kulkarni. The project aims to track and predict dog activities using sensor data from a Wit Motion sensor. The trained CNN model processes the sensor data to make predictions without relying on visual input.
 
 ## Sections
 
-### 1) Paper
+### 1) Data Insides
 
-In the "Paper" section, you can find relevant research papers, documentation, or references that served as the foundation for your project. This can provide users with a deeper understanding of the methodologies and concepts employed in your work.
+In the "Data Insides" section, you can find relevant research papers, data analysis to understand how the sensor data is processed and analyzed. You may include insights, visualizations, or statistical information that sheds light on the characteristics of the dataset. It also outlines the performance metrics and results of the trained CNN model.
 
-### 2) Data Analysis
+### 2) Quick Guide
 
-Explore the "Data Analysis" section to understand how the sensor data is processed and analyzed. You may include insights, visualizations, or statistical information that sheds light on the characteristics of the dataset.
+Get started with the Dog Activity Tracker by following our quick guide. This section provides an overview of how to navigate the application efficiently. Discover insights into your dog's activities, visualize trends, and interact with the features seamlessly. Whether you're a first-time user or a seasoned pro, the Quick Guide ensures a smooth and enjoyable experience with our application.
 
-### 3) Evaluation
-
-The "Evaluation" section outlines the performance metrics and results of the trained CNN model. Share details on how well the model performs in predicting dog activities and any insights gained during the evaluation process.
-
-### 4) App
+### 3) App
 
 Visit the "App" section to interact with the deployed Streamlit application. This section allows users to experience the Dog Activity Tracker in action. You can include screenshots or GIFs to showcase the user interface and demonstrate the application's features.
 
-**Access the Streamlit App [Here](https://dog-activity-tracker.streamlit.app/)**
+**Access the Streamlit App [Here](https://dog-activity-recognition.streamlit.app/)**
 
 ## Overall Project Description
 
@@ -65,5 +61,3 @@ Meet the talented individuals who contributed to the success of the Dog Activity
 
 - **Aniket Kulkarni**
   - GitHub Profile: [LinkedIn](https://www.linkedin.com/in/aniket-kulkarni-62569b103/)
-
-A big thank you to all the contributors for their dedication and efforts in making this project a reality.
