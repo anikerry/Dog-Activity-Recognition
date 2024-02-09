@@ -182,14 +182,26 @@ def main():
         # Step 5
         st.title("Step 5: View the prediction results")
 
-        # Image
-        image = Image.open("utils/Images/guide_step5.png")
-        image = image.resize((400, 400))
+        # Line chart
+        image = Image.open("utils/Images/guide_step5_1.png")
+        image = image.resize((800, 800))
         st.image(image, caption="", use_column_width=False)
 
-        st.write("➣ The app will display the prediction results.")
-        st.write("➣ In the prediction results, the app will display the most likely activity of the dog.")
-        st.write("➣ Graphs will be displayed to show the actions of the dog over time.")
+        st.write("➣ The app display the prediction results.")
+        st.write("➣ In the prediction results, the app display the most likely activity of the dog.")
+        st.write("➣ The line chart of all actions over time for each data points.")
+
+        # Bar chart
+        image = Image.open("utils/Images/guide_step5_2.png")
+        image = image.resize((800, 400))
+        st.image(image, caption="", use_column_width=False)
+        st.write("➣ The app display the most occurred actions over a 5 different time intervals.")
+
+        # Countplot
+        image = Image.open("utils/Images/guide_step5_3.png")
+        image = image.resize((800, 400))
+        st.image(image, caption="", use_column_width=False)
+        st.write("➣ The app display the distribution of all actions.")
 
 
     elif main_menu == "Application":
@@ -206,8 +218,7 @@ def main():
         uploaded_file = st.file_uploader("Choose a file")
 
         if uploaded_file is not None:
-            # Create an empty container to hold the results
-            result_container = st.empty()
+            render_graphs = False
 
             # To read file as bytes:
             bytes_data = uploaded_file.getvalue()
@@ -224,20 +235,70 @@ def main():
                 #     models, features_reshaped)
                 all_actions, most_occurred_pred = make_prediction(
                     model_80, features_reshaped)
-
-
-            fix, ax = plt.subplots()
-            plt.plot(all_actions, color='blue')
-            plt.title('All actions')
-            plt.xlabel('Time')
-            plt.ylabel('Actions')
-
-            # Update the results container with the new graph
-            result_container.pyplot(fix)
+                render_graphs  = True
             
-            st.success("Prediction ready!")
-            text = f"From my observation, your Pino is currently {most_occurred_pred}."
-            st.markdown(f"<p style='text-align: center; color: #008080; font-size: 26px;'>{text}</p>", unsafe_allow_html=True)
+            if render_graphs:
+                st.success("Prediction ready!")
+                text = f"From my observation, your Pino is currently {most_occurred_pred}."
+                st.markdown(f"<p style='text-align: center; color: #008080; font-size: 26px;'>{text}</p>", unsafe_allow_html=True)
+                
+                # Line chart of all actions
+                st.write("")
+                st.write("")
+                st.write(f"➣ Below is a line chart of all actions over time for {len(all_actions)} data points.")
+
+                fix, ax = plt.subplots()
+                plt.plot(all_actions, color='blue')
+                plt.title('All actions')
+                plt.xlabel('Time')
+                plt.ylabel('Actions')
+                st.pyplot(fix)
+                
+                # Bar chart of all actions
+                st.write("")
+                st.write("")
+                st.write(f"➣ Below is a bar chart of the most occurred over a 5 different time intervals. This chart shows the most occurred actions of the dog for each time interval. Each interval lenght is {len(all_actions)//5}.")
+
+                all_actions_array = np.array(all_actions)
+                divided_actions = np.array_split(all_actions_array, 5)
+
+                most_occurred_actions = []
+                for action in divided_actions:
+                    counter = Counter(action)
+                    most_occurred_action, most_occurred_count = counter.most_common(1)[0]
+                    most_occurred_actions.append((most_occurred_action, most_occurred_count))
+                actions, counts = zip(*most_occurred_actions)
+
+                fix2, ax2 = plt.subplots()
+                ax2.bar(range(len(actions)), counts, tick_label=actions)
+                plt.xlabel('Actions')
+                plt.ylabel('Count')
+                plt.title('Most occurred actions')
+
+                for i, count in enumerate(counts):
+                    ax2.text(i, count, str(count), ha='center', va='bottom')
+
+                st.pyplot(fix2)
+
+                # Countplot of all actions
+                st.write("")
+                st.write("")
+                st.write(f"➣ Below is a countplot of all actions. This chart shows the distribution of {len(all_actions)} actions of the dog.")
+
+                fix3, ax3 = plt.subplots()
+                sns.countplot(x=all_actions, palette='Set2')
+                plt.title('Countplot of all actions')
+                plt.xlabel('Actions')
+                plt.ylabel('Count')
+
+                for p in ax3.patches:
+                    ax3.annotate(format(p.get_height(), '.0f'), 
+                                (p.get_x() + p.get_width() / 2., p.get_height()), 
+                                ha = 'center', va = 'center', 
+                                xytext = (0, 10), 
+                                textcoords = 'offset points')
+
+                st.pyplot(fix3)
 
 if __name__ == "__main__":
     main()
