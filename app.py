@@ -123,12 +123,12 @@ def main():
         flow_chart = plt.imread("utils/Images/Flowchart.png")
         st.image(flow_chart, caption="")
 
-        st.title("See How It Works.. ")
+        # st.title("See How It Works.. ")
 
         # Video
-        video_file = open('utils/video.mp4', 'rb')
-        video_bytes = video_file.read()
-        st.video(video_bytes)
+        # video_file = open('utils/video.mp4', 'rb')
+        # video_bytes = video_file.read()
+        # st.video(video_bytes)
 
 
         # Step 1
