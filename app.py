@@ -163,11 +163,14 @@ def main():
         image = Image.open("utils/Images/guide_step3.png")
         image = image.resize((800, 400))
         st.image(image, caption="", use_column_width=False)
+        smaple_csv_glink = "https://drive.google.com/file/d/1HB3OHQ-vVlR-AA2erIBRCukgI28BhDP2/view?usp=drive_link"
 
         st.write("➣ Upload the csv file to the Dog Activity Recognizer App.")
         st.write("➣ Make sure the csv file is in the correct format.")
         st.write("➣ The app will analyze the data and predict the dog's activity.")
+        st.write(f"➣ If you don't have a csv file, you can download a sample csv file from [here]({smaple_csv_glink}).")
 
+        
         # Step 4
         st.title("Step 4: Data Processing and Prediction")
 
