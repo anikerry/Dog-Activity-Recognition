@@ -25,7 +25,7 @@ def main():
     if main_menu == "App Insides":
         st.title("Paper")
 
-        paper_drive_link = "https://drive.google.com/file/d/17gCNTUSo6i-DqTn2_xw8Ant88xLaITOw/view?usp=drive_link"
+        paper_drive_link = "https://drive.google.com/file/d/1rOQl03EHiVCTFlE10RVPsoQnZODZbScr/view?usp=drive_link"
 
         text = f"Click <a href='{paper_drive_link}' target='_blank'>here</a> to view the paper."
         st.markdown(f"<p style='font-size: 26px;'>{text}</p>", unsafe_allow_html=True)
