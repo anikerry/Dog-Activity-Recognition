@@ -215,6 +215,8 @@ def main():
         # models = [model_79, model_80]
 
         st.title("Upload the csv file here")
+        smaple_csv_glink = "https://drive.google.com/file/d/1HB3OHQ-vVlR-AA2erIBRCukgI28BhDP2/view?usp=drive_link"
+        st.write(f"➣ If you don't have a csv file, you can download a sample csv file from [here]({smaple_csv_glink}).")
         uploaded_file = st.file_uploader("Choose a file")
 
         if uploaded_file is not None:
